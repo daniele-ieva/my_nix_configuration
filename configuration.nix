@@ -6,12 +6,20 @@
 		./hardware-configuration.nix
 	];
 	# Configure boot
-	boot.loader.systemd-boot.enable = true;
-	boot.loader.efi.canTouchEfiVariables = true;
-	boot.loader.timeout = 0;
+	boot.loader = {
+		systemd-boot.enable = true;
+		efi.canTouchEfiVariables = true;
+		timeout = 0;
+	};
 
 	# Configure basic options
-	networking.hostName = "nixos";
+	networking  = {
+		hostName = "nixos";
+		nameservers = [ "1.1.1.1" "9.9.9.9" "8.8.8.8" ];
+		firewall = {
+			allowedTCPPorts = [ 22 ];
+		};
+	};
 	time.timeZone = "Europe/Rome";
 
 	i18n.defaultLocale = "en_US.UTF-8";
@@ -69,8 +77,14 @@
 	networking.dhcpcd.runHook = "${pkgs.utillinux}/bin/agetty --reload";
 
 	# Enable openssh daemon
-	services.openssh.enable = true;
-	networking.firewall.allowedTCPPorts = [ 22 ];
+	services.openssh = {
+		enable = true;
+		settings = {
+			PasswordAuthentication = false;
+			KbdInteractiveAuthentication = false;
+			PermitRootLogin = "no";
+		};
+	};
 
 	# Enable doas (a sudo alternative)
 	security.doas = {
@@ -84,6 +98,9 @@
 			extraGroups = [ "wheel" ];
 			group = "users";
 			home = "/home/admin";
+			openssh.authorizedKeys.keyFiles = [
+				"/etc/nixos/ssh/authorized_keys/nixos.pub"
+			];
 		};
 	};
 
