@@ -157,7 +157,7 @@
 		autoUpgrade = {
 			enable = true;
 			operation = "boot";
-			allowReboot = "true";
+			allowReboot = true;
 			persistent = true;
 		};
 		stateVersion = "23.05";
