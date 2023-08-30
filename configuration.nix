@@ -99,6 +99,7 @@
 			distrobox
 			man
 			lsd
+			neofetch
 		];
 
 		shells = [
