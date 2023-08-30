@@ -40,7 +40,7 @@
 
 			ohMyZsh = {
 				enable = true;
-				theme = "crunch";
+				theme = "half-life";
 			};
 			shellAliases = {
 				sudo = "sudo ";
