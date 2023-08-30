@@ -41,9 +41,14 @@
 
 	# enable and configure zsh
 	programs = {
+		# User Shell
 		zsh = {
 			enable = true;
-			autosuggestions.enable = true;
+			autosuggestions = {
+				enable = true;
+				async = true;
+			};
+
 			ohMyZsh = {
 				enable = true;
 				theme = "crunch";
@@ -55,11 +60,36 @@
 				rm = "rm -r";
 			};
 		};
-
+		# Reqiurement to fix VSCode Remote Server
 		nix-ld = {
 			enable = true;
 		};
+		# File Editor
+		neovim = {
+			enable = true;
+			defaultEditor = true;
+			vimAlias = true;
+			viAlias = true;
+		};
+
+		# File Viewer
+		less = {
+			enable = true;
+
+		};
+
+		# Fix previous command when using the alias (default "fuck")
+		thefuck = {
+			enable = true;
+			alias = "fuck";
+		};
+
+		# TUI Process Monitor
+		htop = {
+			enable = true;
+		};
 	};
+
 	environment.shells = [
 		pkgs.zsh
 		pkgs.bash
