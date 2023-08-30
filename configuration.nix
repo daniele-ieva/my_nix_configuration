@@ -17,8 +17,6 @@
 		hostName = "nixos";
 		nameservers = [ "1.1.1.1" "9.9.9.9" "8.8.8.8" ];
 		firewall = {
-			enable = true;
-			allowPing = true;
 			allowedTCPPorts = [ 22 ];
 		};
 	};
@@ -42,18 +40,24 @@
 	];
 
 	# enable and configure zsh
-	programs.zsh = {
-		enable = true;
-		autosuggestions.enable = true;
-		ohMyZsh = {
+	programs = {
+		zsh = {
 			enable = true;
-			theme = "crunch";
+			autosuggestions.enable = true;
+			ohMyZsh = {
+				enable = true;
+				theme = "crunch";
+			};
+			shellAliases = {
+				ls = "lsd";
+				ll = "lsd -l";
+				la = "lsa -lA";
+				rm = "rm -r";
+			};
 		};
-		shellAliases = {
-			ls = "lsd";
-			ll = "lsd -l";
-			la = "lsa -lA";
-			rm = "rm -r";
+
+		nix-ld = {
+			enable = true;
 		};
 	};
 	environment.shells = [
