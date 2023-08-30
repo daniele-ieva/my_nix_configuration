@@ -17,6 +17,8 @@
 		hostName = "nixos";
 		nameservers = [ "1.1.1.1" "9.9.9.9" "8.8.8.8" ];
 		firewall = {
+			enable = true;
+			allowPing = true;
 			allowedTCPPorts = [ 22 ];
 		};
 	};
