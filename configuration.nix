@@ -152,6 +152,14 @@
 	users.defaultUserShell = pkgs.zsh;
 
 	# Final System Configuration
-	system.copySystemConfiguration = true;
-	system.stateVersion = "23.05";
+	system = {
+		copySystemConfiguration = true;
+		autoUpgrade = {
+			enable = true;
+			operation = "boot";
+			allowReboot = "true";
+			persistent = true;
+		};
+		stateVersion = "23.05";
+	};
 }
