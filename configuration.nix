@@ -28,17 +28,6 @@
 		keyMap = "it";
 	};
 
-	# Install system wide programs
-	environment.systemPackages = with pkgs; [
-		wget
-		micro
-		git
-		gh
-		distrobox
-		man
-		lsd
-	];
-
 	# enable and configure zsh
 	programs = {
 		# User Shell
@@ -92,11 +81,6 @@
 		};
 	};
 
-	environment.shells = [
-		pkgs.zsh
-		pkgs.bash
-	];
-
 	# Enable and configure podman for distrobox
 	virtualisation.podman = {
 		enable = true;
@@ -104,15 +88,37 @@
 		dockerCompat = true;
 	};
 
+	
+	# Install system wide programs
+	environment = {
+		systemPackages = with pkgs; [
+			wget
+			micro
+			git
+			gh
+			distrobox
+			man
+			lsd
+		];
+
+		shells = [
+		pkgs.zsh
+		pkgs.bash
+		];
+
+		variables = {
+			EDITOR = "nvim";
+			VISUAL = "nvim";
+			SUDO_EDITOR = "nvim";
+		};
+	};
+
+
 	# Configure btrfs trim
 	services.btrfs.autoScrub = {
 		enable = true;
 		interval = "weekly";
 	};
-
-	# Print ip address on tty login to ssh
-	environment.etc."issue.d/ip.issue".text = "\\4\n";
-	networking.dhcpcd.runHook = "${pkgs.utillinux}/bin/agetty --reload";
 
 	# Enable openssh daemon
 	services.openssh = {
