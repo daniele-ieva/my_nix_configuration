@@ -54,6 +54,8 @@
 				theme = "crunch";
 			};
 			shellAliases = {
+				sudo = "sudo ";
+				doas = "doas ";
 				ls = "lsd";
 				ll = "lsd -l";
 				la = "lsa -lA";
