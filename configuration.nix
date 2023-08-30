@@ -48,7 +48,7 @@
 				ls = "lsd";
 				ll = "lsd -l";
 				la = "lsa -lA";
-				rm = "rm -r";
+				rm = "rm -ri";
 			};
 		};
 		# Reqiurement to fix VSCode Remote Server
