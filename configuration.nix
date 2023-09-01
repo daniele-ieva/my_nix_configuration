@@ -17,7 +17,7 @@
 		hostName = "nixos";
 		nameservers = [ "1.1.1.1" "9.9.9.9" "8.8.8.8" ];
 		firewall = {
-			allowedTCPPorts = [ 22 ];
+			allowedTCPPorts = [ 22 25565 ];
 		};
 	};
 	time.timeZone = "Europe/Rome";
@@ -80,6 +80,12 @@
 		htop = {
 			enable = true;
 		};
+
+		git = {
+			enable = true;
+#			userName = "John Doe";
+#			userEmail = "john.doe@email.com";	
+		};
 	};
 
 	# Enable and configure podman for distrobox
@@ -95,7 +101,6 @@
 		systemPackages = with pkgs; [
 			wget
 			micro
-			git
 			gh
 			distrobox
 			man
@@ -116,21 +121,19 @@
 	};
 
 
-	services = {
-		# Configure btrfs trim
-		btrfs.autoScrub = {
-			enable = true;
-			interval = "weekly";
-		};
+	# Configure btrfs trim
+	services.btrfs.autoScrub = {
+		enable = true;
+		interval = "weekly";
+	};
 
-		# Configure openssh daemon
-			openssh = {
-			enable = true;
-			settings = {
-				PasswordAuthentication = false;
-				KbdInteractiveAuthentication = false;
-				PermitRootLogin = "no";
-			};
+	# Enable openssh daemon
+	services.openssh = {
+		enable = true;
+		settings = {
+			PasswordAuthentication = false;
+			KbdInteractiveAuthentication = false;
+			PermitRootLogin = "no";
 		};
 	};
 
@@ -140,20 +143,19 @@
 		wheelNeedsPassword = true;
 	};
 	# User Configuration
-	users = {
-		users = {
-			admin = {
-				isNormalUser = true;
-				extraGroups = [ "wheel" ];
-				group = "users";
-				home = "/home/admin";
-				openssh.authorizedKeys.keyFiles = [
-					"/etc/nixos/ssh/authorized_keys/nixos.pub"
-				];
-			};
+	users.users = {
+		admin = {
+			isNormalUser = true;
+			extraGroups = [ "wheel" ];
+			group = "users";
+			home = "/home/admin";
+			openssh.authorizedKeys.keyFiles = [
+				"/etc/nixos/ssh/authorized_keys/nixos.pub"
+			];
 		};
-		defaultUserShell = pkgs.zsh;
 	};
+
+	users.defaultUserShell = pkgs.zsh;
 
 	# Final System Configuration
 	system = {
