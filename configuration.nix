@@ -83,8 +83,6 @@
 
 		git = {
 			enable = true;
-#			userName = "John Doe";
-#			userEmail = "john.doe@email.com";	
 		};
 	};
 
